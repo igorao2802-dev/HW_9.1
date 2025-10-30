@@ -1,0 +1,95 @@
+:root{
+  --ribbon-color:#d93131;
+  --ribbon-text:#fff;
+  --ribbon-width:140px;
+  --ribbon-rotate:45deg;
+  --card-w:220px;
+  --card-h:160px;
+  --font: Arial, Helvetica, sans-serif;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:var(--font);background:#f7f8fb;color:#111}
+.site{max-width:1100px;margin:28px auto;padding:0 18px}
+h1{font-size:20px;margin-bottom:14px}
+
+.ribbon-examples{display:flex;flex-wrap:wrap;gap:18px}
+
+.ribbon{
+  position:relative;
+  width:var(--card-w);
+  background:#fff;
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 8px 22px rgba(0,0,0,0.06);
+}
+
+.ribbon img{
+  display:block;
+  width:100%;
+  height:var(--card-h);
+  object-fit:cover;
+}
+
+/* Текст ленточки */
+.ribbon p{display:inline;margin:0;padding:0}
+.ribbon p span{
+  display:inline-block;
+  position:absolute;
+  top:22px;
+  right:-25px;
+  width:var(--ribbon-width);
+  padding:8px 12px;
+  text-align:center;
+  color:var(--ribbon-text);
+  background:var(--ribbon-color);
+  text-transform:uppercase;
+  font-weight:700;
+  font-size:13px;
+  transform:rotate(var(--ribbon-rotate));
+  box-shadow:0 6px 18px rgba(0,0,0,0.25), inset 0 6px 18px rgba(255,255,255,0.05);
+  z-index:3;
+  pointer-events:none;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* Псевдоэлементы для загибов ленточки (под основной полосой) */
+.ribbon p span::before,
+.ribbon p span::after{
+  content:"";
+  position:absolute;
+  width:0;height:0;
+  border-style:solid;
+  z-index:2;
+}
+
+/* верхний загиб */
+.ribbon p span::before{
+  right: calc(100% - 25px);
+  top:-17px;
+  border-width:17px 17px 0 17px;
+  border-color:#eeeeee transparent transparent transparent;
+  z-index:1;
+}
+
+/* нижний загиб (перевернутый) */
+.ribbon p span::after{
+  right:-10px;
+  top:calc(100% - 6px);
+  border-width:17px 17px 0 17px;
+  transform:rotate(180deg);
+  border-color:#eeeeee transparent transparent transparent;
+  z-index:1;
+}
+
+/* обрезание длинного текста */
+.ribbon p span{max-width:140px}
+
+/* адаптив */
+@media (max-width:520px){
+  .ribbon{width:180px}
+  .ribbon img{height:130px}
+  :root{--ribbon-width:120px}
+}
